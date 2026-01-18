@@ -1,204 +1,376 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<title>Emotional KI · Datenbasierte emotionale Heilung</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, #eaf4fb 0%, #ffffff 100%);
-  color: #0b3558;
-  margin: 0;
-}
-header {
-  background: #0b4f7c;
-  color: white;
-  padding: 48px 24px;
-}
-header h1 { margin: 0 0 12px 0; }
-header p { max-width: 900px; }
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 48px 24px;
-}
-.section {
-  margin-bottom: 56px;
-}
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-.badge {
-  display: inline-block;
-  background: #0b4f7c;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 14px;
-}
-footer {
-  background: #f2f6fa;
-  padding: 32px 24px;
-  text-align: center;
-  font-size: 14px;
-}
-img {
-  max-width: 100%;
-  border-radius: 12px;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emotional KI · Datenbasierte emotionale Heilung</title>
+  <meta name="description" content="Prototyp eines KI basierten Frühwarnsystems zur Erkennung stressbedingter Emotionen. Maurice Klein Hitpaß, Hochschule Ansbach." />
+  <style>
+    :root{
+      --blau:#0b4f7c;
+      --blau2:#1268a3;
+      --text:#0b3558;
+      --muted:#5e7891;
+      --bg:#eaf4fb;
+      --card:#ffffff;
+      --shadow: 0 12px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 10% 0%, #d7ecfb 0%, var(--bg) 35%, #ffffff 100%);
+      line-height:1.55;
+    }
+    a{color:var(--blau); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1160px; margin:0 auto; padding:28px 18px 64px}
+
+    header{
+      margin-top:14px;
+      background: linear-gradient(135deg, rgba(11,79,124,.96) 0%, rgba(18,104,163,.94) 100%);
+      color:#fff;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      padding:34px;
+      align-items:center;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-40px -40px auto auto;
+      width:360px;
+      height:360px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,0));
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      background: rgba(255,255,255,.16);
+      padding:8px 12px;
+      border-radius: 999px;
+      width:max-content;
+    }
+    h1{
+      margin:14px 0 8px;
+      font-size: clamp(30px, 3.5vw, 44px);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      font-size: 18px;
+      color: rgba(255,255,255,.92);
+      max-width: 56ch;
+      margin: 0 0 18px;
+    }
+    .heroActions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 14px;
+      border-radius: 14px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.12);
+      color:#fff;
+    }
+    .btnPrimary{
+      background:#fff;
+      color:var(--blau);
+      border-color:#fff;
+    }
+    .authorCard{
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 20px;
+      padding:14px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    .portrait{
+      width:118px;
+      height:148px;
+      border-radius: 14px;
+      object-fit: cover;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .authorName{font-weight:900; font-size:18px}
+    .authorMeta{opacity:.95}
+    .authorSmall{opacity:.9; font-size:13px; margin-top:6px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:20px;
+    }
+    .span6{grid-column: span 6}
+    .span7{grid-column: span 7}
+    .span5{grid-column: span 5}
+    .span12{grid-column: span 12}
+
+    h2{
+      margin:0 0 8px;
+      font-size: 22px;
+      letter-spacing:.2px;
+    }
+    p{margin:8px 0}
+    .muted{color:var(--muted)}
+    .pillRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .pill{
+      border:1px solid rgba(11,79,124,.18);
+      background: rgba(11,79,124,.06);
+      padding:8px 10px;
+      border-radius: 999px;
+      font-weight:700;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .list{
+      margin:10px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: var(--blau2);
+      margin-top:7px;
+      flex: 0 0 auto;
+    }
+
+    .img{
+      width:100%;
+      height:auto;
+      border-radius: 14px;
+      border: 1px solid rgba(11,79,124,.12);
+      background:#fff;
+    }
+
+    .twoCols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+    }
+
+    .qrWrap{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .qr{
+      width:220px;
+      height:220px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(11,79,124,.14);
+      background:#fff;
+    }
+
+    footer{
+      margin-top:26px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr; padding:22px}
+      .span6,.span7,.span5{grid-column: span 12}
+      .twoCols{grid-template-columns:1fr}
+      .portrait{width:110px; height:138px}
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
 
-<header>
-  <div style="max-width:1100px;margin:auto;display:grid;grid-template-columns:1.2fr 0.8fr;gap:24px;align-items:center;">
-    <div>
-  <h1>Datenbasierte emotionale Heilung</h1>
-  <p><strong>KI gestuetztes Fruehwarnsystem und KI Coach</strong><br />
-  Konzeptueller Prototyp im Kontext psychischer Praevention und Selbstregulation</p>
-    <span class="badge">Prototyp</span>
-    </div>
-    <div style="background:rgba(255,255,255,0.12);border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center;">
-      <picture>
-        <source srcset="maurice-profil-800x1000.webp" type="image/webp" />
-        <img src="maurice-profil-800x1000.jpg" alt="Portrait von Maurice Klein Hitpaß" style="width:110px;height:138px;object-fit:cover;border-radius:12px;" />
-      </picture>
-      <div>
-        <div style="font-weight:700;font-size:18px;line-height:1.2;">Maurice Klein Hitpaß</div>
-        <div style="opacity:0.95;">Hochschule Ansbach</div>
-        <div style="opacity:0.9;font-size:13px;margin-top:6px;">Studienprojekt. Konzeptueller Prototyp.</div>
+    <header>
+      <div class="hero">
+        <div>
+          <div class="kicker">Prototyp · Hochschule Ansbach</div>
+          <h1>Emotional KI</h1>
+          <p class="subtitle">
+            Frühwarnsystem und KI Coach zur Erkennung stressbedingter Emotionen.
+            Wearables erfassen Biomarker, die KI erkennt Dysregulation frühzeitig und empfiehlt passende Übungen.
+          </p>
+
+          <div class="heroActions">
+            <a class="btn btnPrimary" href="#qr">Prototyp öffnen</a>
+            <a class="btn" href="#kontakt">Kontakt aufnehmen</a>
+            <a class="btn" href="#herausforderungen">Herausforderungen</a>
+          </div>
+
+          <p class="muted" style="margin-top:14px;">
+            Live Demo:
+            <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/">
+              https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/
+            </a>
+          </p>
+        </div>
+
+        <div class="authorCard">
+          <picture>
+            <source srcset="maurice-profil-800x1000.webp" type="image/webp" />
+            <img class="portrait" src="maurice-profil-800x1000.jpg" alt="Portrait von Maurice Klein Hitpaß" />
+          </picture>
+          <div>
+            <div class="authorName">Maurice Klein Hitpaß</div>
+            <div class="authorMeta">Hochschule Ansbach</div>
+            <div class="authorSmall">Konzeptueller Prototyp · Prävention und Selbstregulation</div>
+          </div>
+        </div>
       </div>
+    </header>
+
+    <div class="grid">
+
+      <section class="card span7">
+        <h2>Der Stressreaktionskreislauf</h2>
+        <p class="muted">Früherkennung setzt vor automatischen Kompensationsreaktionen an und unterbricht den Teufelskreis.</p>
+        <img class="img" src="assets/stressreaktionskreislauf.png" alt="Stressreaktionskreislauf Diagramm" />
+        <div class="pillRow">
+          <span class="pill">Dysregulation erkennen</span>
+          <span class="pill">Individuelle Übung je Stufe</span>
+          <span class="pill">Teufelskreis unterbrechen</span>
+        </div>
+      </section>
+
+      <section class="card span5">
+        <h2>Was wird gemessen</h2>
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>Herzfrequenz</strong> als Stress und Aktivierungsindikator</span></li>
+          <li><span class="dot"></span><span><strong>Atmung</strong> als schneller Marker für Anspannung</span></li>
+          <li><span class="dot"></span><span><strong>Schlafverhalten</strong> als Basis für Regeneration</span></li>
+        </ul>
+
+        <h2 style="margin-top:18px;">Systemnutzen</h2>
+        <ul class="list">
+          <li><span class="dot"></span><span>Stressmuster erkennen, bevor ungesunde Reaktionen einsetzen</span></li>
+          <li><span class="dot"></span><span>Frühwarnung per Signal und App Benachrichtigung</span></li>
+          <li><span class="dot"></span><span>Konkrete, kurze Übungen statt Überforderung</span></li>
+        </ul>
+      </section>
+
+      <section class="card span6">
+        <h2>Wearables und Sensorik</h2>
+        <p>
+          Wearables sind mit Sensoren ausgestattet, können am Handgelenk vibrieren und sind mit dem KI Coach gekoppelt.
+          So entsteht ein körpernahes Frühwarnsignal, das den Autopiloten unterbricht.
+        </p>
+        <img class="img" src="assets/prototyp_wearable.png" alt="Wearable Prototyp" />
+      </section>
+
+      <section class="card span6">
+        <h2>App und KI Coach</h2>
+        <p>
+          Der KI Coach erkennt kritische Stressmuster und empfiehlt je nach Stufe eine passende Übung
+          wie Atemregulation oder eine kurze Reflexion.
+        </p>
+        <div class="twoCols">
+          <img class="img" src="assets/prototyp_app_mockup.png" alt="App Prototyp Mockup" />
+          <img class="img" src="assets/prototyp_ki_coach.png" alt="KI Coach Mockup" />
+        </div>
+      </section>
+
+      <section class="card span12" id="herausforderungen">
+        <h2>Technische und ethische Herausforderungen</h2>
+        <div class="twoCols">
+          <div>
+            <h3 style="margin:0 0 6px; color:var(--blau);">Technische Herausforderungen</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Fehlalarme bei kurzfristigen Stressreaktionen</span></li>
+              <li><span class="dot"></span><span>Individuelle Unterschiede in physiologischen Stressmustern</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin:0 0 6px; color:var(--blau);">Ethische Herausforderungen</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Schutz sensibler Gesundheitsdaten</span></li>
+              <li><span class="dot"></span><span>Risiko emotionaler Abhängigkeit von KI Systemen</span></li>
+              <li><span class="dot"></span><span>Abgrenzung zwischen Coaching und Therapie</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:12px;">
+          Das System ist als Präventions und Coaching Instrument konzipiert. Es stellt keine Diagnose und ersetzt keine Therapie.
+        </p>
+      </section>
+
+      <section class="card span12" id="qr">
+        <h2>QR Code zum Prototyp</h2>
+        <p>Scanne den QR Code oder klicke darauf, um den Prototyp zu öffnen.</p>
+        <div class="qrWrap">
+          <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/" aria-label="Prototyp öffnen">
+            <img class="qr" src="qr-emotional-ki-prototyp.png" alt="QR Code zum Prototyp" />
+          </a>
+          <div>
+            <p><strong>Link</strong><br />
+              <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/">
+                https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/
+              </a>
+            </p>
+            <p class="muted">
+              Falls der QR Code nicht angezeigt wird: Prüfe, ob <strong>qr-emotional-ki-prototyp.png</strong> im Repository Root liegt.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card span12" id="kontakt">
+        <h2>Kontakt</h2>
+        <p>Fragen oder Feedback zum Konzept sind willkommen.</p>
+        <p>
+          <a class="btn btnPrimary" href="mailto:maurice.klein.hitpass@example.com">E Mail senden</a>
+          <span class="muted" style="margin-left:10px;">Adresse in index.html anpassen</span>
+        </p>
+      </section>
+
     </div>
+
+    <footer>
+      © 2026 Maurice Klein Hitpaß · Emotional KI · Konzeptueller Prototyp
+    </footer>
+
   </div>
-</header>
-
-<main>
-
-<section class="section">
-  <div class="card">
-    <h2>Projektidee</h2>
-    <p style="margin-top:10px;"><strong>Live Demo:</strong> <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/" style="color:#0b4f7c;">https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/</a></p>
-    <p>
-      <strong>Emotional KI</strong> ist ein konzeptioneller Prototyp eines datenbasierten Fruehwarnsystems, 
-      das emotionale Dysregulation fruehzeitig erkennt und Menschen dabei unterstuetzt, 
-      gesuendere Bewaeltigungsstrategien zu entwickeln.
-    </p>
-    <p>
-      Grundlage bilden physiologische Biomarker aus Wearables sowie ein KI‑basierter Coach, 
-      der situationsabhaengige Interventionen vorschlaegt.
-    </p>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Der Stressreaktionskreislauf</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>1. Datenerfassung</h3>
-      <p>Herzfrequenz, Atemmuster und Schlafverhalten werden kontinuierlich erfasst.</p>
-    </div>
-    <div class="card">
-      <h3>2. Mustererkennung</h3>
-      <p>Die KI identifiziert individuelle Stress- und Dysregulationsmuster.</p>
-    </div>
-    <div class="card">
-      <h3>3. Fruehwarnung</h3>
-      <p>Haptische oder visuelle Signale warnen vor kritischen Zustaenden.</p>
-    </div>
-    <div class="card">
-      <h3>4. Intervention</h3>
-      <p>Passende Atem-, Reflexions- oder Regulationsuebungen werden empfohlen.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Beispielhafte Prototypen</h2>
-  <p>Die folgenden Visuals sind Prototyp Mockups und dienen der anschaulichen Darstellung des Konzeptes.</p>
-  <div class="grid">
-    <div class="card">
-      <h3>App Interface (Mockup)</h3>
-      <p>Anzeige von Stresslevel, Fruehwarnung und direkter Handlungsempfehlung.</p>
-      <img src="assets/prototyp-app-mockup.png" alt="App Mockup" />
-    </div>
-    <div class="card">
-      <h3>Wearable Feedback</h3>
-      <p>Sanfte Vibration als koerpernahes Signal zur Unterbrechung automatischer Reaktionen.</p>
-      <img src="assets/prototyp-wearable.png" alt="Wearable Mockup" />
-    </div>
-    <div class="card">
-      <h3>KI Coach</h3>
-      <p>Digitale Begleitung mit empathischer, nicht-therapeutischer Sprache.</p>
-      <img src="assets/prototyp-ki-coach.png" alt="KI Coach" />
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="card">
-    <h2>Ethische und technische Einordnung</h2>
-    <p>Das System ist als Praeventions und Coaching Instrument konzipiert. Es stellt keine Diagnose und ersetzt keine Therapie.</p>
-    <ul>
-      <li>Kein Ersatz fuer Psychotherapie oder medizinische Behandlung</li>
-      <li>Fokus auf Praevention, Selbstwahrnehmung und Stabilisierung</li>
-      <li>Schutz sensibler Gesundheitsdaten als zentrales Designprinzip</li>
-      <li>Transparente Abgrenzung zwischen Coaching und Therapie</li>
-    </ul>
-  </div>
-</section>
-
-<section class="section">
-  <div class="card">
-    <h2>Projektkontext</h2>
-    <p>
-      <strong>Autor:</strong> Maurice Klein‑Hitpaß<br />
-      <strong>Studienkontext:</strong> Hochschule Ansbach<br />
-      <strong>Status:</strong> Konzeptueller Prototyp und Studienprojekt</p>
-  </div>
-</section>
-
-<section class="section" id="qr">
-  <div class="card">
-    <h2>QR Code fuer den Prototyp</h2>
-    <p>Scanne den QR Code oder nutze den Link, um den Prototyp im Browser zu oeffnen.</p>
-    <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
-      <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/" style="text-decoration:none;">
-        <img src="qr-emotional-ki-prototyp.png" alt="QR Code zum Prototyp" style="width:220px;height:220px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.08);" />
-      </a>
-      <div>
-        <div style="font-weight:800;font-size:18px;">Link</div>
-        <div><a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/" style="color:#0b4f7c;">https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/</a></div>
-        <div style="margin-top:10px;font-size:14px;opacity:0.9;">Wichtig: Die Datei <strong>qr emotional ki prototyp png</strong> muss im Repository Root liegen.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="kontakt">
-  <div class="card">
-    <h2>Kontakt</h2>
-    <p>Wenn du Fragen zum Prototyp hast oder Feedback geben moechtest, freue ich mich ueber eine Nachricht.</p>
-    <p><a href="mailto:maurice.klein.hitpass@example.com" style="display:inline-block;background:#0b4f7c;color:#ffffff;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:800;">E Mail senden</a></p>
-    <p style="font-size:13px;opacity:0.85;">Du kannst die E Mail Adresse in der Datei index html jederzeit anpassen.</p>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <p>© 2026 Maurice Klein Hitpaß · Emotional KI · Prototyp</p>
-</footer>
-
 </body>
 </html>
+
 
 
