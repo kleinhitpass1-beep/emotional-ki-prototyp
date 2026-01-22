@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Emotional KI · Datenbasierte emotionale Heilung</title>
-  <meta name="description" content="Prototyp eines KI basierten Frühwarnsystems zur Erkennung stressbedingter Emotionen. Maurice Klein Hitpaß, Hochschule Ansbach." />
+  <title>Emotional KI · Frühwarnsystem für stressbedingte Emotionen</title>
+  <meta name="description" content="Emotional KI ist ein konzeptueller Prototyp eines Frühwarnsystems zur Erkennung stressbedingter Emotionen. Projektseite von Maurice Klein Hitpaß, Hochschule Ansbach." />
+
   <style>
     :root{
       --blau:#0b4f7c;
@@ -15,6 +16,7 @@
       --card:#ffffff;
       --shadow: 0 12px 30px rgba(0,0,0,.08);
       --radius: 18px;
+      --border: 1px solid rgba(11,79,124,.12);
     }
     *{box-sizing:border-box}
     body{
@@ -22,12 +24,12 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       color:var(--text);
       background: radial-gradient(1200px 600px at 10% 0%, #d7ecfb 0%, var(--bg) 35%, #ffffff 100%);
-      line-height:1.55;
+      line-height:1.6;
     }
     a{color:var(--blau); text-decoration:none}
     a:hover{text-decoration:underline}
-    .wrap{max-width:1160px; margin:0 auto; padding:28px 18px 64px}
 
+    .wrap{max-width:1180px; margin:0 auto; padding:28px 18px 70px}
     header{
       margin-top:14px;
       background: linear-gradient(135deg, rgba(11,79,124,.96) 0%, rgba(18,104,163,.94) 100%);
@@ -35,6 +37,17 @@
       border-radius: 26px;
       box-shadow: var(--shadow);
       overflow:hidden;
+      position:relative;
+    }
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-60px -60px auto auto;
+      width:420px;
+      height:420px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,0));
+      transform: rotate(12deg);
+      pointer-events:none;
     }
     .hero{
       display:grid;
@@ -44,36 +57,27 @@
       align-items:center;
       position:relative;
     }
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:-40px -40px auto auto;
-      width:360px;
-      height:360px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,0));
-      transform: rotate(12deg);
-      pointer-events:none;
-    }
     .kicker{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-weight:700;
+      font-weight:800;
       background: rgba(255,255,255,.16);
       padding:8px 12px;
       border-radius: 999px;
       width:max-content;
+      letter-spacing:.2px;
     }
     h1{
       margin:14px 0 8px;
-      font-size: clamp(30px, 3.5vw, 44px);
+      font-size: clamp(30px, 3.6vw, 46px);
       letter-spacing:.2px;
     }
     .subtitle{
       font-size: 18px;
-      color: rgba(255,255,255,.92);
-      max-width: 60ch;
-      margin: 0 0 18px;
+      color: rgba(255,255,255,.94);
+      max-width: 66ch;
+      margin: 0 0 14px;
     }
     .heroActions{
       display:flex;
@@ -87,10 +91,12 @@
       justify-content:center;
       padding:12px 14px;
       border-radius: 14px;
-      font-weight:800;
+      font-weight:900;
       border:1px solid rgba(255,255,255,.35);
       background: rgba(255,255,255,.12);
       color:#fff;
+      cursor:pointer;
+      user-select:none;
     }
     .btnPrimary{
       background:#fff;
@@ -115,9 +121,33 @@
       background: rgba(255,255,255,.16);
       border: 1px solid rgba(255,255,255,.25);
     }
-    .authorName{font-weight:900; font-size:18px}
+    .authorName{font-weight:1000; font-size:18px}
     .authorMeta{opacity:.95}
-    .authorSmall{opacity:.9; font-size:13px; margin-top:6px}
+    .authorSmall{opacity:.92; font-size:13px; margin-top:6px}
+    .noteBox{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 13px;
+      color: rgba(255,255,255,.92);
+    }
+
+    nav{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .navPill{
+      background: rgba(11,79,124,.07);
+      border: var(--border);
+      border-radius: 999px;
+      padding:10px 12px;
+      font-weight:900;
+      color: var(--text);
+    }
 
     .grid{
       display:grid;
@@ -130,13 +160,17 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding:20px;
+      border: var(--border);
     }
-    .span6{grid-column: span 6}
-    .span7{grid-column: span 7}
-    .span5{grid-column: span 5}
     .span12{grid-column: span 12}
+    .span8{grid-column: span 8}
+    .span7{grid-column: span 7}
+    .span6{grid-column: span 6}
+    .span5{grid-column: span 5}
+    .span4{grid-column: span 4}
 
     h2{margin:0 0 8px; font-size:22px}
+    h3{margin:0 0 8px; font-size:18px}
     p{margin:8px 0}
     .muted{color:var(--muted)}
 
@@ -155,17 +189,38 @@
       flex: 0 0 auto;
     }
 
+    .callout{
+      background: rgba(11,79,124,.06);
+      border: 1px solid rgba(11,79,124,.14);
+      padding:14px 14px;
+      border-radius: 16px;
+    }
+    .pillRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .pill{
+      border:1px solid rgba(11,79,124,.18);
+      background: rgba(11,79,124,.06);
+      padding:8px 10px;
+      border-radius: 999px;
+      font-weight:900;
+      color: var(--text);
+      font-size: 13px;
+    }
+
     .img{
       width:100%;
       height:auto;
       border-radius: 14px;
-      border: 1px solid rgba(11,79,124,.12);
+      border: var(--border);
       background:#fff;
     }
-
     .twoCols{
       display:grid;
       grid-template-columns: 1fr 1fr;
+      gap:18px;
+    }
+    .threeCols{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
       gap:18px;
     }
 
@@ -191,10 +246,10 @@
       font-size: 13px;
     }
 
-    @media (max-width: 980px){
+    @media (max-width: 1020px){
       .hero{grid-template-columns: 1fr; padding:22px}
-      .span6,.span7,.span5{grid-column: span 12}
-      .twoCols{grid-template-columns:1fr}
+      .span8,.span7,.span6,.span5,.span4{grid-column: span 12}
+      .twoCols,.threeCols{grid-template-columns:1fr}
       .portrait{width:110px; height:138px}
     }
   </style>
@@ -206,20 +261,35 @@
     <header>
       <div class="hero">
         <div>
-          <div class="kicker">Prototyp · Hochschule Ansbach</div>
-          <h1>Emotional KI</h1>
+          <div class="kicker">Emotional KI · Frühwarnsystem</div>
+          <h1>Frühwarnsystem für stressbedingte Emotionen</h1>
           <p class="subtitle">
-            Frühwarnsystem und KI Coach zur Erkennung stressbedingter Emotionen.
-            Wearables erfassen Biomarker, die KI erkennt Dysregulation frühzeitig und empfiehlt passende Übungen.
+            Konzeptueller Prototyp zur frühzeitigen Erkennung kritischer Stresszustände.
+            Wearables erfassen Biomarker, eine KI erkennt Dysregulation und empfiehlt präventive Übungen,
+            bevor ungesunde Bewältigungsreaktionen einsetzen.
           </p>
 
           <div class="heroActions">
-            <a class="btn btnPrimary" href="#qr">Prototyp öffnen</a>
-            <a class="btn" href="#kontakt">Kontakt aufnehmen</a>
-            <a class="btn" href="#herausforderungen">Herausforderungen</a>
+            <a class="btn btnPrimary" href="#qr">Hier scannen für den Prototyp</a>
+            <a class="btn" href="#prototyp">Prototyp Bausteine</a>
+            <a class="btn" href="#herausforderungen">Technik und Ethik</a>
+            <a class="btn" href="#kiansaetze">KI Ansätze</a>
           </div>
 
-          <p class="muted" style="margin-top:14px;">
+          <div class="noteBox">
+            Vision: Eine emotionale KI, die nicht erst reagiert, wenn Stress eskaliert, sondern früh unterstützt, bevor Verhalten kippt.
+          </div>
+
+          <nav>
+            <a class="navPill" href="#ziel">Ziel</a>
+            <a class="navPill" href="#stressmuster">Stressmuster</a>
+            <a class="navPill" href="#biomarker">Biomarker</a>
+            <a class="navPill" href="#prototyp">Prototyp</a>
+            <a class="navPill" href="#qr">QR Code</a>
+            <a class="navPill" href="#kontakt">Kontakt</a>
+          </nav>
+
+          <p class="muted" style="margin-top:12px;">
             Live Demo:
             <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/">
               https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/
@@ -235,7 +305,8 @@
           <div>
             <div class="authorName">Maurice Klein Hitpaß</div>
             <div class="authorMeta">Hochschule Ansbach</div>
-            <div class="authorSmall">Konzeptueller Prototyp · Prävention und Selbstregulation</div>
+            <div class="authorSmall">Studienprojekt · Konzeptueller Prototyp</div>
+            <div class="authorSmall">Fokus: Prävention, Selbstregulation, Datensouveränität</div>
           </div>
         </div>
       </div>
@@ -243,76 +314,211 @@
 
     <div class="grid">
 
-      <section class="card span7">
-        <h2>Der Stressreaktionskreislauf</h2>
-        <p class="muted">Früherkennung setzt vor automatischen Kompensationsreaktionen an und unterbricht den Teufelskreis.</p>
-        <img class="img" src="stressreaktionskreislauf.png" alt="Stressreaktionskreislauf Diagramm" />
+      <!-- ZIEL -->
+      <section class="card span7" id="ziel">
+        <h2>Ziel</h2>
+        <p>
+          Ziel des Frühwarnsystems ist es, kritische Stresszustände frühzeitig zu identifizieren und gezielt zu intervenieren,
+          bevor sie sich negativ auf Gesundheit, Wohlbefinden und Verhalten auswirken.
+        </p>
+        <p class="muted">
+          Der Fokus liegt auf Prävention, Selbstregulation und der frühzeitigen Unterbrechung automatischer Stressreaktionen.
+        </p>
+
+        <div class="pillRow">
+          <span class="pill">Stresslevel erkennen</span>
+          <span class="pill">Frühzeitig gegensteuern</span>
+          <span class="pill">Gefährliche Stressentgleisungen verhindern</span>
+        </div>
+
+        <div class="callout" style="margin-top:14px;">
+          <strong>Kernidee:</strong> Wenn Dysregulation erkannt wird, erhält die Person eine individuell passende Übung je nach Stufe.
+          Das System unterstützt damit aktiv, bevor kompensatorische Verhaltensreaktionen entstehen.
+        </div>
       </section>
 
       <section class="card span5">
-        <h2>Was wird gemessen</h2>
+        <h2>Was das System konkret macht</h2>
         <ul class="list">
-          <li><span class="dot"></span><span><strong>Herzfrequenz</strong> als Stress und Aktivierungsindikator</span></li>
-          <li><span class="dot"></span><span><strong>Atmung</strong> als schneller Marker für Anspannung</span></li>
-          <li><span class="dot"></span><span><strong>Schlafverhalten</strong> als Basis für Regeneration</span></li>
-        </ul>
-
-        <h2 style="margin-top:18px;">Systemnutzen</h2>
-        <ul class="list">
-          <li><span class="dot"></span><span>Stressmuster erkennen, bevor ungesunde Reaktionen einsetzen</span></li>
-          <li><span class="dot"></span><span>Frühwarnung per Signal und App Benachrichtigung</span></li>
-          <li><span class="dot"></span><span>Konkrete, kurze Übungen statt Überforderung</span></li>
+          <li><span class="dot"></span><span><strong>Kontinuierliche Messung</strong> physiologischer Stresssignale</span></li>
+          <li><span class="dot"></span><span><strong>Erkennung individueller Muster</strong> statt starrer Grenzwerte</span></li>
+          <li><span class="dot"></span><span><strong>Frühe Warnung</strong> durch Signal und App Benachrichtigung</span></li>
+          <li><span class="dot"></span><span><strong>Empfehlung kurzer Übungen</strong> für sofortige Selbstregulation</span></li>
+          <li><span class="dot"></span><span><strong>Unterbrechung des Teufelskreises</strong> bei ungesunden Bewältigungsstrategien</span></li>
         </ul>
       </section>
 
-      <section class="card span6">
-        <h2>Wearables und Sensorik</h2>
-        <p>
-          Wearables sind mit Sensoren ausgestattet, können am Handgelenk vibrieren und sind mit dem KI Coach gekoppelt.
-          So entsteht ein körpernahes Frühwarnsignal, das den Autopiloten unterbricht.
+      <!-- STRESSMUSTER -->
+      <section class="card span7" id="stressmuster">
+        <h2>Das Stressreaktionsmuster</h2>
+        <p class="muted">
+          Das System setzt vor automatischen Kompensationsreaktionen an und hilft, den Kreislauf zu unterbrechen.
         </p>
-        <img class="img" src="prototyp_wearable.png" alt="Wearable Prototyp" />
+        <img class="img" src="stressreaktionskreislauf.png" alt="Stressreaktionsmuster und Kreislauf" />
+        <p class="muted" style="margin-top:10px;">
+          Beispiel für negative Stressfolgen: exzessive Social Media Nutzung, Fast Food, Alkohol oder andere kurzfristige Kompensation.
+        </p>
       </section>
 
-      <section class="card span6">
-        <h2>App und KI Coach</h2>
+      <section class="card span5">
+        <h2>Intervention im richtigen Moment</h2>
         <p>
-          Der KI Coach erkennt kritische Stressmuster und empfiehlt je nach Stufe eine passende Übung
-          wie Atemregulation oder eine kurze Reflexion.
+          Sobald Dysregulation erkannt wird, schlägt die KI eine präventive Übung vor. Ziel ist nicht Kontrolle,
+          sondern Unterstützung durch kurze, realistische Schritte.
         </p>
-        <div class="twoCols">
-          <img class="img" src="prototyp_app_mockup.png" alt="App Prototyp Mockup" />
-          <img class="img" src="prototyp_ki_coach.png" alt="KI Coach Mockup" />
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>Haptisches Signal</strong> am Handgelenk als Unterbrechung</span></li>
+          <li><span class="dot"></span><span><strong>Atemregulation</strong> als schnelle Stabilisierung</span></li>
+          <li><span class="dot"></span><span><strong>Reflexion</strong> zur Ursachenklärung und Entscheidungsfreiheit</span></li>
+          <li><span class="dot"></span><span><strong>Optional</strong> Weiterleitung zu Unterstützung, falls erforderlich</span></li>
+        </ul>
+      </section>
+
+      <!-- BIOMARKER -->
+      <section class="card span6" id="biomarker">
+        <h2>Biomarker und Sensorik</h2>
+        <p>
+          Der KI Coach misst kontinuierlich Biomarker. Diese Daten bilden die Grundlage für die Erkennung individueller Stressmuster.
+        </p>
+        <ul class="list">
+          <li><span class="dot"></span><span><strong>Herzfrequenz</strong> als Indikator für Aktivierung und Belastung</span></li>
+          <li><span class="dot"></span><span><strong>Atmung</strong> als schneller Marker für Anspannung und Regulation</span></li>
+          <li><span class="dot"></span><span><strong>Schlafverhalten</strong> als Basis für Erholung und Stabilität</span></li>
+        </ul>
+        <div class="callout" style="margin-top:14px;">
+          <strong>Wichtig:</strong> Ziel ist keine Diagnose. Es geht um Mustererkennung und präventive Unterstützung zur Selbsthilfe.
         </div>
       </section>
 
+      <section class="card span6">
+        <h2>Wearable Feedback</h2>
+        <p>
+          Wearables sind mit Sensoren ausgestattet, die am Handgelenk vibrieren und direkt mit dem KI Coach gekoppelt sind.
+          Dadurch entsteht ein körpernahes Frühwarnsignal im Alltag.
+        </p>
+        <img class="img" src="prototyp_wearable.png" alt="Prototyp Wearable Feedback" />
+      </section>
+
+      <!-- PROTOTYP -->
+      <section class="card span12" id="prototyp">
+        <h2>Prototyp · Präventive Unterstützung</h2>
+        <p class="muted">
+          Die folgenden Visuals sind Prototyp Darstellungen und dienen der anschaulichen Erklärung des Konzepts.
+        </p>
+        <div class="threeCols" style="margin-top:12px;">
+          <div>
+            <h3>Smartwatch Feedback</h3>
+            <img class="img" src="prototyp_wearable.png" alt="Smartwatch Prototyp" />
+            <p class="muted">Haptisches Signal und schnelle Sichtbarkeit kritischer Zustände.</p>
+          </div>
+          <div>
+            <h3>App Benachrichtigungen</h3>
+            <img class="img" src="prototyp_app_mockup.png" alt="App Prototyp" />
+            <p class="muted">Atemübung, Reflexion, klare nächste Schritte statt Überforderung.</p>
+          </div>
+          <div>
+            <h3>KI Coach Unterstützung</h3>
+            <img class="img" src="prototyp_ki_coach.png" alt="KI Coach Prototyp" />
+            <p class="muted">Empathische Begleitung, transparent, nicht therapeutisch.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- KI ANSÄTZE -->
+      <section class="card span12" id="kiansaetze">
+        <h2>Konkrete eingesetzte KI Ansätze</h2>
+        <div class="twoCols" style="margin-top:10px;">
+          <div class="callout">
+            <h3>Maschinelles Lernen</h3>
+            <p class="muted">
+              Die KI lernt aus Daten, wie sich Stress bei einer Person typischerweise entwickelt und welche Muster kritisch sind.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Personalisierte Schwellenwerte statt Standardwerte</span></li>
+              <li><span class="dot"></span><span>Anpassung an Alltag und individuelle Unterschiede</span></li>
+              <li><span class="dot"></span><span>Kontinuierliche Verbesserung durch Feedback</span></li>
+            </ul>
+          </div>
+
+          <div class="callout">
+            <h3>Zeitreihenanalyse</h3>
+            <p class="muted">
+              Veränderungen über Zeit werden ausgewertet, zum Beispiel steigende Herzfrequenz oder unruhiger Schlaf.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Erkennung von Trends und Abweichungen</span></li>
+              <li><span class="dot"></span><span>Berücksichtigung von Tageszeit und Kontext</span></li>
+              <li><span class="dot"></span><span>Frühwarnung vor Eskalation</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="twoCols" style="margin-top:14px;">
+          <div class="callout">
+            <h3>Mustererkennung</h3>
+            <p class="muted">
+              Wiederkehrende Stressverläufe und Abweichungen vom persönlichen Normalzustand werden identifiziert.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Stabiler Alltag versus kritische Phasen</span></li>
+              <li><span class="dot"></span><span>Erkennung von Überforderung und Dauerstress</span></li>
+              <li><span class="dot"></span><span>Hinweise auf passende Übungen je Stufe</span></li>
+            </ul>
+          </div>
+
+          <div class="callout">
+            <h3>Anomalieerkennung</h3>
+            <p class="muted">
+              Ungewöhnliche Stressentwicklungen werden früh erkannt, bevor sie eskalieren.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Abweichungen von typischen Tagesmustern</span></li>
+              <li><span class="dot"></span><span>Kombination mehrerer Biomarker</span></li>
+              <li><span class="dot"></span><span>Gezielte Warnung mit klarer Handlungsempfehlung</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- HERAUSFORDERUNGEN -->
       <section class="card span12" id="herausforderungen">
-        <h2>Technische und ethische Herausforderungen</h2>
-        <div class="twoCols">
+        <h2>Herausforderungen · Technik und Ethik</h2>
+
+        <div class="twoCols" style="margin-top:10px;">
           <div>
-            <h3 style="margin:0 0 6px; color:var(--blau);">Technische Herausforderungen</h3>
+            <h3 style="color:var(--blau);">Technische Herausforderungen</h3>
             <ul class="list">
+              <li><span class="dot"></span><span>Qualität und Genauigkeit von Sensordaten</span></li>
+              <li><span class="dot"></span><span>Individuelle Unterschiede in Stressreaktionen</span></li>
+              <li><span class="dot"></span><span>Kontextabhängige Interpretation physiologischer Signale</span></li>
+              <li><span class="dot"></span><span>Zuverlässige Echtzeit Analyse im Alltag</span></li>
               <li><span class="dot"></span><span>Fehlalarme bei kurzfristigen Stressreaktionen</span></li>
-              <li><span class="dot"></span><span>Individuelle Unterschiede in physiologischen Stressmustern</span></li>
             </ul>
           </div>
+
           <div>
-            <h3 style="margin:0 0 6px; color:var(--blau);">Ethische Herausforderungen</h3>
+            <h3 style="color:var(--blau);">Ethische Aspekte</h3>
             <ul class="list">
-              <li><span class="dot"></span><span>Schutz sensibler Gesundheitsdaten</span></li>
-              <li><span class="dot"></span><span>Risiko emotionaler Abhängigkeit von KI Systemen</span></li>
-              <li><span class="dot"></span><span>Abgrenzung zwischen Coaching und Therapie</span></li>
+              <li><span class="dot"></span><span>Datenschutz und volle Datensouveränität der Nutzer</span></li>
+              <li><span class="dot"></span><span>Keine Diagnose, kein Ersatz für Therapie</span></li>
+              <li><span class="dot"></span><span>Unterstützung der Selbstregulation, keine Fremdsteuerung</span></li>
+              <li><span class="dot"></span><span>Transparente und verständliche KI Empfehlungen</span></li>
+              <li><span class="dot"></span><span>Risiko emotionaler Abhängigkeit von KI Systemen reduzieren</span></li>
             </ul>
           </div>
         </div>
-        <p class="muted" style="margin-top:12px;">
-          Das System ist als Präventions und Coaching Instrument konzipiert. Es stellt keine Diagnose und ersetzt keine Therapie.
-        </p>
+
+        <div class="callout" style="margin-top:14px;">
+          <strong>Abgrenzung:</strong> Emotional KI ist ein Präventions und Coaching Konzept. Es stellt keine medizinische Diagnose,
+          ersetzt keine Psychotherapie und dient der Selbsthilfe und Stabilisierung.
+        </div>
       </section>
 
+      <!-- QR -->
       <section class="card span12" id="qr">
         <h2>QR Code zum Prototyp</h2>
         <p>Scanne den QR Code oder klicke darauf, um den Prototyp zu öffnen.</p>
+
         <div class="qrWrap">
           <a href="https://kleinhitpass1-beep.github.io/emotional-ki-prototyp/" aria-label="Prototyp öffnen">
             <img class="qr" src="qr-emotional-ki-prototyp.png" alt="QR Code zum Prototyp" />
@@ -324,30 +530,59 @@
               </a>
             </p>
             <p class="muted">
-              Falls der QR Code nicht angezeigt wird: Prüfe, ob <strong>qr-emotional-ki-prototyp.png</strong> im Repository Root liegt.
+              Hinweis: Falls der QR Code nicht angezeigt wird, prüfe ob die Datei qr emotional ki prototyp png im Repository Root liegt.
             </p>
           </div>
         </div>
       </section>
 
+      <!-- TRANSPARENZ -->
+      <section class="card span12" id="transparenz">
+        <h2>Transparenz und Datenschutz</h2>
+        <div class="twoCols">
+          <div class="callout">
+            <h3>Datenprinzipien</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Datensparsamkeit: nur notwendige Signale</span></li>
+              <li><span class="dot"></span><span>Einwilligung: Nutzer entscheiden über Nutzung</span></li>
+              <li><span class="dot"></span><span>Verständlichkeit: klare Erklärungen der Empfehlungen</span></li>
+            </ul>
+          </div>
+          <div class="callout">
+            <h3>Sicherheitsprinzipien</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Schutz sensibler Gesundheitsdaten</span></li>
+              <li><span class="dot"></span><span>Keine verdeckte Profilbildung</span></li>
+              <li><span class="dot"></span><span>Keine automatischen Diagnosen</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:14px;">
+          <strong>Hinweis:</strong> Diese Webseite zeigt einen Konzeptprototyp. Inhalte und Visuals dienen der Darstellung eines möglichen Systems.
+        </div>
+      </section>
+
+      <!-- KONTAKT -->
       <section class="card span12" id="kontakt">
         <h2>Kontakt</h2>
-        <p>Fragen oder Feedback zum Konzept sind willkommen.</p>
-        <p>
+        <p>Fragen oder Feedback zum Projekt sind willkommen. Die E Mail Adresse kannst du jederzeit in der index html anpassen.</p>
+        <p style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
           <a class="btn btnPrimary" href="mailto:maurice.klein.hitpass@example.com">E Mail senden</a>
-          <span class="muted" style="margin-left:10px;">Adresse in index.html anpassen</span>
+          <span class="muted">Optional: füge hier später LinkedIn oder Projektunterlagen hinzu</span>
         </p>
       </section>
 
     </div>
 
     <footer>
-      © 2026 Maurice Klein Hitpaß · Emotional KI · Konzeptueller Prototyp
+      © 2026 Maurice Klein Hitpaß · Emotional KI · Hochschule Ansbach · Konzeptueller Prototyp
     </footer>
 
   </div>
 </body>
 </html>
+
 
 
 
