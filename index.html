@@ -56,7 +56,21 @@
       padding:34px;
       align-items:center;
       position:relative;
+      min-height: 360px;
     }
+
+    /* Neue Studieninfo oben */
+    .studyInfo{
+      position:absolute;
+      top:16px;
+      left:20px;
+      right:20px;
+      font-size:13px;
+      color:rgba(255,255,255,.92);
+      opacity:.95;
+      line-height:1.4;
+    }
+
     .kicker{
       display:inline-flex;
       align-items:center;
@@ -67,6 +81,7 @@
       border-radius: 999px;
       width:max-content;
       letter-spacing:.2px;
+      margin-top: 40px;
     }
     h1{
       margin:14px 0 8px;
@@ -103,6 +118,7 @@
       color:var(--blau);
       border-color:#fff;
     }
+
     .authorCard{
       background: rgba(255,255,255,.14);
       border: 1px solid rgba(255,255,255,.22);
@@ -112,7 +128,16 @@
       gap:14px;
       align-items:center;
       justify-content:flex-start;
+      backdrop-filter: blur(4px);
     }
+    /* Namensblock oben rechts */
+    .authorTopRight{
+      position:absolute;
+      top:70px;
+      right:24px;
+      max-width:320px;
+    }
+
     .portrait{
       width:118px;
       height:148px;
@@ -140,14 +165,13 @@
       gap:10px;
       flex-wrap:wrap;
     }
-    
     .navPill{
-      background: rgba(11,79,124,.07);
-      border: var(--border);
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.24);
       border-radius: 999px;
       padding:10px 12px;
       font-weight:900;
-      color: var(--text);
+      color: #fff;
     }
 
     .grid{
@@ -247,8 +271,24 @@
       font-size: 13px;
     }
 
-    @media (max-width: 1020px){
-      .hero{grid-template-columns: 1fr; padding:22px}
+    /* Mobile: absolute Elemente zurücksetzen */
+    @media (max-width: 900px){
+      .authorTopRight{
+        position:relative;
+        top:auto;
+        right:auto;
+        max-width:100%;
+        margin-top:16px;
+      }
+      .studyInfo{
+        position:relative;
+        top:auto;
+        left:auto;
+        right:auto;
+        margin-bottom:12px;
+      }
+      .kicker{margin-top:0}
+      .hero{grid-template-columns:1fr; padding:22px; min-height:auto}
       .span8,.span7,.span6,.span5,.span4{grid-column: span 12}
       .twoCols,.threeCols{grid-template-columns:1fr}
       .portrait{width:110px; height:138px}
@@ -261,6 +301,13 @@
 
     <header>
       <div class="hero">
+
+        <div class="studyInfo">
+          Ausarbeitung im Rahmen des Studiengangs:
+          <strong>AKI – angewandte künstliche Intelligenz</strong><br />
+          Fach: <strong>KI-Einführung</strong> · Betreuer: <strong>Prof. Dr.-Ing. Förtsch</strong>
+        </div>
+
         <div>
           <div class="kicker">Emotional KI · Frühwarnsystem</div>
           <h1>Frühwarnsystem für stressbedingte Emotionen</h1>
@@ -271,6 +318,7 @@
           </p>
 
           <div class="heroActions">
+            <a class="btn btnPrimary" href="#qr">Hier scannen für den Prototyp</a>
             <a class="btn" href="#prototyp">Prototyp Bausteine</a>
             <a class="btn" href="#herausforderungen">Technik und Ethik</a>
             <a class="btn" href="#kiansaetze">KI Ansätze</a>
@@ -280,23 +328,24 @@
             Vision: Eine emotionale KI, die nicht erst reagiert, wenn Stress eskaliert, sondern früh unterstützt, bevor Verhalten kippt.
           </div>
 
-   <nav>
-  <a class="navPill" href="#ziel">Ziel</a>
-  <a class="navPill" href="#stressmuster">Stressmuster</a>
-  <a class="navPill" href="#biomarker">Biomarker</a>
-  <a class="navPill" href="#prototyp">Prototyp</a>
-  <a class="navPill" href="#projektstatus">Projektstatus</a>
-  <a class="navPill" href="#anwendungsfaelle">Anwendungsfälle</a>
-  <a class="navPill" href="#evaluation">Evaluation</a>
-  <a class="navPill" href="#roadmap">Roadmap</a>
-  <a class="navPill" href="#qr">QR Code</a>
-  <a class="navPill" href="#kontakt">Kontakt</a>
-</nav>
+          <nav>
+            <a class="navPill" href="#ziel">Ziel</a>
+            <a class="navPill" href="#stressmuster">Stressmuster</a>
+            <a class="navPill" href="#biomarker">Biomarker</a>
+            <a class="navPill" href="#projektstatus">Projektstatus</a>
+            <a class="navPill" href="#anwendungsfaelle">Anwendungsfälle</a>
+            <a class="navPill" href="#evaluation">Evaluation</a>
+            <a class="navPill" href="#roadmap">Roadmap</a>
+            <a class="navPill" href="#qr">QR Code</a>
+            <a class="navPill" href="#kontakt">Kontakt</a>
+          </nav>
 
+          <p class="muted" style="margin-top:12px; color:rgba(255,255,255,.88);">
+            </a>
+          </p>
+        </div>
 
-          
-          
-        <div class="authorCard">
+        <div class="authorCard authorTopRight">
           <picture>
             <source srcset="maurice-profil-800x1000.webp" type="image/webp" />
             <img class="portrait" src="maurice-profil-800x1000.jpg" alt="Portrait von Maurice Klein Hitpaß" />
@@ -308,6 +357,7 @@
             <div class="authorSmall">Fokus: Prävention, Selbstregulation, Datensouveränität</div>
           </div>
         </div>
+
       </div>
     </header>
 
@@ -412,176 +462,150 @@
           </div>
           <div>
             <h3>App Benachrichtigungen</h3>
-            <img class="img" src="prototyp_app_mockup.png" alt="App Prototyp" />
+            <img class="img" src="prototyp_app_mockup.png" alt="App Prototyp Mockup" />
             <p class="muted">Atemübung, Reflexion, klare nächste Schritte statt Überforderung.</p>
           </div>
           <div>
             <h3>KI Coach Unterstützung</h3>
-            <img class="img" src="prototyp_ki_coach.png" alt="KI Coach Prototyp" />
+            <img class="img" src="prototyp_ki_coach.png" alt="KI Coach Prototyp Mockup" />
             <p class="muted">Empathische Begleitung, transparent, nicht therapeutisch.</p>
           </div>
         </div>
       </section>
-<!-- PROJEKTSTATUS -->
-<section class="card span12" id="projektstatus">
-  <h2>Projektstatus und Abgrenzung</h2>
 
-  <div class="twoCols" style="margin-top:10px;">
-    <div class="callout">
-      <h3>Status</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span><strong>Konzeptueller Prototyp</strong> mit Visuals und Prozesslogik</span></li>
-        <li><span class="dot"></span><span><strong>Kein Medizinprodukt</strong> und keine klinische Validierung</span></li>
-        <li><span class="dot"></span><span><strong>Zielrichtung:</strong> Prävention, Selbstregulation, Frühwarnung im Alltag</span></li>
-      </ul>
-    </div>
+      <!-- PROJEKTSTATUS -->
+      <section class="card span12" id="projektstatus">
+        <h2>Projektstatus und Abgrenzung</h2>
 
-    <div class="callout">
-      <h3>Abgrenzung</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span><strong>Keine Diagnose</strong> und keine Therapie</span></li>
-        <li><span class="dot"></span><span><strong>Coaching Fokus:</strong> Übungen, Reflexion, Handlungsoptionen</span></li>
-        <li><span class="dot"></span><span><strong>Transparenz:</strong> Empfehlungen werden erklärbar dargestellt</span></li>
-      </ul>
-    </div>
-  </div>
+        <div class="twoCols" style="margin-top:10px;">
+          <div class="callout">
+            <h3>Status</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span><strong>Konzeptueller Prototyp</strong> mit Visuals und Prozesslogik</span></li>
+              <li><span class="dot"></span><span><strong>Kein Medizinprodukt</strong> und keine klinische Validierung</span></li>
+              <li><span class="dot"></span><span><strong>Zielrichtung:</strong> Prävention, Selbstregulation, Frühwarnung im Alltag</span></li>
+            </ul>
+          </div>
 
-  <div class="callout" style="margin-top:14px;">
-    <strong>Leitprinzip:</strong> Das System unterstützt Selbstwirksamkeit. Es soll Nutzer nicht steuern, sondern ihnen helfen,
-    einen Moment früher bewusst zu entscheiden.
-  </div>
-</section>
+          <div class="callout">
+            <h3>Abgrenzung</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span><strong>Keine Diagnose</strong> und keine Therapie</span></li>
+              <li><span class="dot"></span><span><strong>Coaching Fokus:</strong> Übungen, Reflexion, Handlungsoptionen</span></li>
+              <li><span class="dot"></span><span><strong>Transparenz:</strong> Empfehlungen werden erklärbar dargestellt</span></li>
+            </ul>
+          </div>
+        </div>
 
-<!-- ANWENDUNGSFÄLLE -->
-<section class="card span12" id="anwendungsfaelle">
-  <h2>Anwendungsfälle im Alltag</h2>
-  <p class="muted">Beispiele, wann Emotional KI sinnvoll unterstützen kann, ohne zu überfordern.</p>
+        <div class="callout" style="margin-top:14px;">
+          <strong>Leitprinzip:</strong> Das System unterstützt Selbstwirksamkeit. Es soll Nutzer nicht steuern, sondern ihnen helfen,
+          einen Moment früher bewusst zu entscheiden.
+        </div>
+      </section>
 
-  <div class="threeCols" style="margin-top:10px;">
-    <div class="callout">
-      <h3>Arbeitsstress</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Überlastung und Zeitdruck erkennen</span></li>
-        <li><span class="dot"></span><span>Kurze Atemübung vor Meetings</span></li>
-        <li><span class="dot"></span><span>Reflexion: Was ist jetzt wirklich wichtig</span></li>
-      </ul>
-    </div>
+      <!-- ANWENDUNGSFÄLLE -->
+      <section class="card span12" id="anwendungsfaelle">
+        <h2>Anwendungsfälle im Alltag</h2>
+        <p class="muted">Beispiele, wann Emotional KI sinnvoll unterstützen kann, ohne zu überfordern.</p>
 
-    <div class="callout">
-      <h3>Soziale Situationen</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Anspannung vor Gesprächen wahrnehmen</span></li>
-        <li><span class="dot"></span><span>Regulation statt Vermeidung</span></li>
-        <li><span class="dot"></span><span>Option: kurze Pause als Handlung</span></li>
-      </ul>
-    </div>
+        <div class="threeCols" style="margin-top:10px;">
+          <div class="callout">
+            <h3>Arbeitsstress</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Überlastung und Zeitdruck erkennen</span></li>
+              <li><span class="dot"></span><span>Kurze Atemübung vor Meetings</span></li>
+              <li><span class="dot"></span><span>Reflexion: Was ist jetzt wirklich wichtig</span></li>
+            </ul>
+          </div>
 
-    <div class="callout">
-      <h3>Abend und Erholung</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Stressfolgen: Social Media, Snacking, Alkohol</span></li>
-        <li><span class="dot"></span><span>Frühwarnung vor Autopilot Verhalten</span></li>
-        <li><span class="dot"></span><span>Schlafschutz durch kleine Intervention</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
+          <div class="callout">
+            <h3>Soziale Situationen</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Anspannung vor Gesprächen wahrnehmen</span></li>
+              <li><span class="dot"></span><span>Regulation statt Vermeidung</span></li>
+              <li><span class="dot"></span><span>Option: kurze Pause als Handlung</span></li>
+            </ul>
+          </div>
 
-<!-- EVALUATION -->
-<section class="card span12" id="evaluation">
-  <h2>Evaluation und Wirksamkeitskriterien</h2>
-  <p class="muted">
-    Wie der Prototyp in einem nächsten Schritt geprüft werden könnte: technisch, nutzerzentriert und verantwortungsvoll.
-  </p>
+          <div class="callout">
+            <h3>Abend und Erholung</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Stressfolgen: Social Media, Snacking, Alkohol</span></li>
+              <li><span class="dot"></span><span>Frühwarnung vor Autopilot Verhalten</span></li>
+              <li><span class="dot"></span><span>Schlafschutz durch kleine Intervention</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-  <div class="twoCols" style="margin-top:10px;">
-    <div class="callout">
-      <h3>Technische Qualität</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span><strong>Fehlalarm Rate:</strong> Wie oft wird fälschlich gewarnt</span></li>
-        <li><span class="dot"></span><span><strong>Erkennungsrate:</strong> Wie zuverlässig werden kritische Phasen erkannt</span></li>
-        <li><span class="dot"></span><span><strong>Latenz:</strong> Wie schnell erfolgt die Warnung nach Signaländerung</span></li>
-        <li><span class="dot"></span><span><strong>Robustheit:</strong> Umgang mit Messfehlern und Ausreißern</span></li>
-      </ul>
-    </div>
+      <!-- EVALUATION -->
+      <section class="card span12" id="evaluation">
+        <h2>Evaluation und Wirksamkeitskriterien</h2>
+        <p class="muted">
+          Wie der Prototyp in einem nächsten Schritt geprüft werden könnte: technisch, nutzerzentriert und verantwortungsvoll.
+        </p>
 
-    <div class="callout">
-      <h3>Nutzerzentrierte Wirkung</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span><strong>Verhaltensunterbrechung:</strong> gelingt ein bewusster Moment früher</span></li>
-        <li><span class="dot"></span><span><strong>Übungsakzeptanz:</strong> werden Vorschläge als hilfreich empfunden</span></li>
-        <li><span class="dot"></span><span><strong>Stressverlauf:</strong> subjektive Entlastung über Wochen</span></li>
-        <li><span class="dot"></span><span><strong>Vertrauen:</strong> Transparenz und Datenschutzgefühl</span></li>
-      </ul>
-    </div>
-  </div>
+        <div class="twoCols" style="margin-top:10px;">
+          <div class="callout">
+            <h3>Technische Qualität</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span><strong>Fehlalarm Rate:</strong> Wie oft wird fälschlich gewarnt</span></li>
+              <li><span class="dot"></span><span><strong>Erkennungsrate:</strong> Wie zuverlässig werden kritische Phasen erkannt</span></li>
+              <li><span class="dot"></span><span><strong>Latenz:</strong> Wie schnell erfolgt die Warnung nach Signaländerung</span></li>
+              <li><span class="dot"></span><span><strong>Robustheit:</strong> Umgang mit Messfehlern und Ausreißern</span></li>
+            </ul>
+          </div>
 
-  <div class="callout" style="margin-top:14px;">
-    <strong>Messidee:</strong> Kombination aus anonymisierten Nutzungsdaten (zB Übungsstart) und kurzen Selbstreports
-    (zB Stressskala) mit freiwilliger Einwilligung.
-  </div>
-</section>
+          <div class="callout">
+            <h3>Nutzerzentrierte Wirkung</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span><strong>Verhaltensunterbrechung:</strong> gelingt ein bewusster Moment früher</span></li>
+              <li><span class="dot"></span><span><strong>Übungsakzeptanz:</strong> werden Vorschläge als hilfreich empfunden</span></li>
+              <li><span class="dot"></span><span><strong>Stressverlauf:</strong> subjektive Entlastung über Wochen</span></li>
+              <li><span class="dot"></span><span><strong>Vertrauen:</strong> Transparenz und Datenschutzgefühl</span></li>
+            </ul>
+          </div>
+        </div>
 
-<!-- ROADMAP -->
-<section class="card span12" id="roadmap">
-  <h2>Roadmap für die Weiterentwicklung</h2>
+        <div class="callout" style="margin-top:14px;">
+          <strong>Messidee:</strong> Kombination aus anonymisierten Nutzungsdaten (z. B. Übungsstart) und kurzen Selbstreports
+          (z. B. Stressskala) mit freiwilliger Einwilligung.
+        </div>
+      </section>
 
-  <div class="threeCols" style="margin-top:10px;">
-    <div class="callout">
-      <h3>Phase 1 · Validierung</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Interviews und Bedarf im Alltag prüfen</span></li>
-        <li><span class="dot"></span><span>Warnlogik und Schwellen konzipieren</span></li>
-        <li><span class="dot"></span><span>Erste klickbare App Demo erstellen</span></li>
-      </ul>
-    </div>
+      <!-- ROADMAP -->
+      <section class="card span12" id="roadmap">
+        <h2>Roadmap für die Weiterentwicklung</h2>
 
-    <div class="callout">
-      <h3>Phase 2 · Pilot</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Kleiner Test mit freiwilligen Nutzern</span></li>
-        <li><span class="dot"></span><span>Fehlalarme reduzieren, Personalisierung verbessern</span></li>
-        <li><span class="dot"></span><span>Übungen und Inhalte iterativ optimieren</span></li>
-      </ul>
-    </div>
+        <div class="threeCols" style="margin-top:10px;">
+          <div class="callout">
+            <h3>Phase 1 · Validierung</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Interviews und Bedarf im Alltag prüfen</span></li>
+              <li><span class="dot"></span><span>Warnlogik und Schwellen konzipieren</span></li>
+              <li><span class="dot"></span><span>Erste klickbare App Demo erstellen</span></li>
+            </ul>
+          </div>
 
-    <div class="callout">
-      <h3>Phase 3 · Skalierung</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Datenschutz und Sicherheit weiter ausbauen</span></li>
-        <li><span class="dot"></span><span>Transparenz: erklärbare Empfehlungen</span></li>
-        <li><span class="dot"></span><span>Partnerschaften: Forschung, Versorgung, Coaching</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
+          <div class="callout">
+            <h3>Phase 2 · Pilot</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Kleiner Test mit freiwilligen Nutzern</span></li>
+              <li><span class="dot"></span><span>Fehlalarme reduzieren, Personalisierung verbessern</span></li>
+              <li><span class="dot"></span><span>Übungen und Inhalte iterativ optimieren</span></li>
+            </ul>
+          </div>
 
-<!-- RISIKEN -->
-<section class="card span12" id="risiken">
-  <h2>Risiken und Gegenmaßnahmen</h2>
-
-  <div class="twoCols" style="margin-top:10px;">
-    <div class="callout">
-      <h3>Risiken</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Überwachungsempfinden und Vertrauensverlust</span></li>
-        <li><span class="dot"></span><span>Fehlalarme führen zu Stress statt Entlastung</span></li>
-        <li><span class="dot"></span><span>Emotionale Abhängigkeit von KI Empfehlungen</span></li>
-        <li><span class="dot"></span><span>Falsche Erwartungen: Verwechslung mit Therapie</span></li>
-      </ul>
-    </div>
-
-    <div class="callout">
-      <h3>Gegenmaßnahmen</h3>
-      <ul class="list">
-        <li><span class="dot"></span><span>Freiwilligkeit, klare Einwilligung, transparentes Datenmodell</span></li>
-        <li><span class="dot"></span><span>Sanfte Warnungen, adaptive Schwellen, Nutzer Feedback</span></li>
-        <li><span class="dot"></span><span>Autonomie Design: Nutzer entscheidet, KI erklärt nur Optionen</span></li>
-        <li><span class="dot"></span><span>Deutlicher Hinweis: kein Ersatz für Therapie oder Diagnose</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
+          <div class="callout">
+            <h3>Phase 3 · Skalierung</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Datenschutz und Sicherheit weiter ausbauen</span></li>
+              <li><span class="dot"></span><span>Transparenz: erklärbare Empfehlungen</span></li>
+              <li><span class="dot"></span><span>Partnerschaften: Forschung, Versorgung, Coaching</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <!-- KI ANSÄTZE -->
       <section class="card span12" id="kiansaetze">
@@ -724,7 +748,7 @@
       <!-- KONTAKT -->
       <section class="card span12" id="kontakt">
         <h2>Kontakt</h2>
-        <p>Fragen oder Feedback zum Projekt sind willkommen.</p>
+        <p>Fragen oder Feedback zum Projekt sind willkommen. </p>
         <p style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
           <a class="btn btnPrimary" href="mailto:maurice.klein.hitpass@example.com">E Mail senden</a>
         </p>
